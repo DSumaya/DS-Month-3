@@ -1,43 +1,28 @@
 import asyncio
-import random
-from aiogram import Bot, Dispatcher, types
-from aiogram.filters import Command
-from dotenv import dotenv_values
+import logging
+
+from bot_config import bot, dispatcher
+from handlers.start import start_router
+from handlers.my_info import my_info_router
+from handlers.random import random_router
+from handlers.pizza_empire_menu import menu_router
+from handlers.other_message import echo_router
 
 
-token = dotenv_values('.env')['BOT_TOKEN']
-bot = Bot(token = token) #отправляет
-dispatcher = Dispatcher() #принимает
-
-
-@dispatcher.message(Command("start"))
-async def start_handler(message: types.Message):
-    name = message.from_user.first_name
-    await message.answer(f"Привет, {name}")
-
-@dispatcher.message(Command("myinfo"))
-async def my_info_handler(message: types.Message):
-   id_person =message.from_user.id
-   name = message.from_user.first_name
-   username = message.from_user.username
-   await message.answer(f"Ваш id: {id_person}. Имя: {name}. Имя пользователя: {username} ")
-
-names = ['Sumaya', 'Ayana', 'Mika', 'Manya', 'Alex', 'levi', 'Sakura']
-@dispatcher.message(Command("random"))
-async def random_name_handler(message: types.Message):
-    name_random = random.choice (names)
-    await message.answer(f" {name_random}")
-
-
-@dispatcher.message()
-async def echo_handler(message: types.Message):
-    txt = message.text
-    await message.answer(txt)
 
 async def main():
+    dispatcher.include_router(start_router)
+    dispatcher.include_router(my_info_router)
+    dispatcher.include_router(random_router)
+    dispatcher.include_router(menu_router)
+    dispatcher.include_router(echo_router)
+
+
+
+
     await dispatcher.start_polling(bot)  # запуск бота
 
 
-
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
     asyncio.run(main())
