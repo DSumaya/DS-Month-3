@@ -4,5 +4,4 @@ echo_router = Router()
 
 @echo_router.message()
 async def echo_handler(message: types.Message):
-    txt = message.text
-    await message.answer(txt)
+    await message.answer('Я вас не понимаю)')
