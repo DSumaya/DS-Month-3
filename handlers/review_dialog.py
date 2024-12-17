@@ -2,6 +2,8 @@ from aiogram import Router, F, types
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
 
+from bot_config import  database
+
 
 dialog_router = Router()
 
@@ -82,7 +84,9 @@ async def cleanliness_rating(message: types.Message, state: FSMContext):
 @dialog_router.message(RestourantReview.extra_comments)
 async def start_opros(message: types.Message, state: FSMContext):
     await message.answer("Спасибо за пройденый опрос!")
-    await state.set_state(RestourantReview.extra_comments)
+    data = await state.get_data()
+    print(data)
+    database.reviews(data)
 
     await state.clear()
 
