@@ -23,57 +23,60 @@ async def review(callback: types.CallbackQuery, state: FSMContext):
 
 @dialog_router.message(RestourantReview.name)
 async def get_number_instagram (message: types.Message, state: FSMContext):
-    await state.update_data(name=message.text)
+    await state.update_data( phone_or_instagram=message.text)
     await message.answer("Ваш номер телефона или инстаграм?")
     await state.set_state(RestourantReview.phone_or_instagram)
 
 
 @dialog_router.message(RestourantReview.phone_or_instagram)
-async def get_rating_food(message: types.Message, state: FSMContext):
-    kb = types.ReplyKeyboardMarkup(
-        keyboard=[
-            [
-                types.KeyboardButton(text="Плохо"),
-                types.KeyboardButton(text="Удовлетворительно")
-            ],
-            [
-                types.KeyboardButton(text="Хорошо"),
-                types.KeyboardButton(text="Отлично")
-            ],
-        ],
-        resize_keyboard=True
-    )
-    await state.update_data(food_rating=message.text)
-    await message.answer("Как оцениваете качество еды?",  reply_markup=kb)
-    await state.set_state(RestourantReview.food_rating)
+async def get_food_rating(message: types.Message, state: FSMContext):
+        await state.update_data(food_rating=message.text)
+        await message.answer("Как оцениваете качество еды?")
+        await state.set_state(RestourantReview.food_rating)
 
 
 @dialog_router.message(RestourantReview.food_rating)
-async def get_rating_clean(message: types.Message, state: FSMContext):
-    kb = types.ReplyKeyboardMarkup(
-        keyboard=[
-            [
-                types.KeyboardButton(text="Плохо"),
-                types.KeyboardButton(text="Удовлетворительно")
+async def get_cleanliness_rating(message: types.Message, state: FSMContext):
+        kb = types.ReplyKeyboardMarkup(
+            keyboard=[
+                [
+                    types.KeyboardButton(text="Плохо"),
+                    types.KeyboardButton(text="Удовлетворительно")
+                ],
+                [
+                    types.KeyboardButton(text="Хорошо"),
+                    types.KeyboardButton(text="Отлично")
+                ],
             ],
-            [
-                types.KeyboardButton(text="Хорошо"),
-                types.KeyboardButton(text="Отлично")
-            ],
-        ],
-        resize_keyboard=True
-    )
-    await state.update_data(food_rating=message.text)
-    await state.set_state(RestourantReview.cleanliness_rating)
-    await message.answer("Как оцениваете чистоту заведения?", reply_markup=kb)
+            resize_keyboard=True
+        )
+        if message.text in ("Плохо", "Удовлетворительно", "Хорошо", "Отлично"):
+
+           await state.update_data(cleanliness_rating=message.text)
+           await state.set_state(RestourantReview.cleanliness_rating)
+           await message.answer("Как оцениваете чистоту заведения?", reply_markup=kb)
 
 
 
 @dialog_router.message(RestourantReview.cleanliness_rating)
-async def start_opros(message: types.Message, state: FSMContext):
-    await state.update_data(extra_comments=message.text)
-    await message.answer("Дополнительные комментарии/жалоба?")
-    await state.set_state(RestourantReview.extra_comments)
+async def cleanliness_rating(message: types.Message, state: FSMContext):
+    kb = types.ReplyKeyboardMarkup(
+        keyboard=[
+            [
+                types.KeyboardButton(text="Плохо"),
+                types.KeyboardButton(text="Удовлетворительно")
+            ],
+            [
+                types.KeyboardButton(text="Хорошо"),
+                types.KeyboardButton(text="Отлично")
+            ],
+        ],
+        resize_keyboard=True
+    )
+    if message.text in ("Плохо", "Удовлетворительно", "Хорошо", "Отлично"):
+      await state.update_data(cleanliness_rating=message.text)
+      await message.answer("Дополнительные комментарии/жалоба?", reply_markup=kb)
+      await state.set_state(RestourantReview.extra_comments)
 
 
 @dialog_router.message(RestourantReview.extra_comments)
