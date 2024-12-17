@@ -86,7 +86,7 @@ async def start_opros(message: types.Message, state: FSMContext):
     await message.answer("Спасибо за пройденый опрос!")
     data = await state.get_data()
     print(data)
-    database.reviews(data)
+    database.dialog(data)
 
     await state.clear()
 

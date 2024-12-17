@@ -14,7 +14,7 @@ class Database:
                 )
             """)
             conn.commit()
-    def reviews(self, data:dict):
+    def dialog (self, data:dict):
         with sqlite3.connect('self.path') as conn:
             conn.execute(
                 '''

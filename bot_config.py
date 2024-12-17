@@ -1,4 +1,4 @@
-from aiogram import Bot, Dispatcher, types
+from aiogram import Bot, Dispatcher
 from dotenv import dotenv_values
 
 from database import Database
@@ -9,4 +9,4 @@ dispatcher = Dispatcher() #принимает
 
 
 
-database = Database("db.sqlite3")
+database = Database("reviews")
