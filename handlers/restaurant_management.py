@@ -1,4 +1,4 @@
-from aiogram import Router, types
+from aiogram import Router,F, types
 from aiogram.filters import Command
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
@@ -7,6 +7,7 @@ from bot_config import database
 
 
 restaurant_management_router = Router()
+restaurant_management_router.message.filter(F.from_user.id == 278850960)
 
 
 class Restaurant(StatesGroup):
