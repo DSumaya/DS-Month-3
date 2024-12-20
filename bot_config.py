@@ -9,4 +9,4 @@ dispatcher = Dispatcher() #принимает
 
 
 
-database = Database("reviews")
+database = Database("db.sqlite3")
