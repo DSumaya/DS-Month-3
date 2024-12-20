@@ -1,4 +1,3 @@
-
 from aiogram import Router, types
 from aiogram.filters import Command
 
@@ -11,6 +10,3 @@ item = (f'Пицца Маргарита: 350 сом\n Пицца Пепперо�
 async def menu_handler(message: types.Message):
     menu = f"Наше меню: \n '{item}"
     await message.answer(menu)
-
-
-

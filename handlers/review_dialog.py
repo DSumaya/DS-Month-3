@@ -1,4 +1,3 @@
-
 from aiogram import Router, F, types
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
@@ -100,7 +99,7 @@ async def start_opros(message: types.Message, state: FSMContext):
     await message.answer("Спасибо за пройденый опрос!")
     data = await state.get_data()
     print(data)
-    database.dialog(data)
+    database.save_survey(data)
 
     await state.clear()
 
