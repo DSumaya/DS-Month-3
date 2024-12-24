@@ -9,6 +9,7 @@ from handlers.restaurant import menu_router
 from handlers.other_message import echo_router
 from handlers.review_dialog import dialog_router
 from handlers.restaurant_management import restaurant_management_router
+from  handlers.dishes import restaurant_router
 
 async def on_startup():
     database.crate_tables()
@@ -20,6 +21,7 @@ async def main():
     dispatcher.include_router(menu_router)
     dispatcher.include_router(dialog_router)
     dispatcher.include_router(restaurant_management_router)
+    dispatcher.include_router((restaurant_router))
     dispatcher.include_router(echo_router)
 
 

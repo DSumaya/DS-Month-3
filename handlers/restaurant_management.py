@@ -7,7 +7,7 @@ from bot_config import database
 
 
 restaurant_management_router = Router()
-restaurant_management_router.message.filter(F.from_user.id == 278850960)
+# restaurant_management_router.message.filter(F.from_user.id == 278850960)
 
 
 class Restaurant(StatesGroup):
@@ -64,12 +64,6 @@ async def add_categories(message: types.Message, state: FSMContext):
     await state.update_data(categories=message.text)
     data = await state.get_data()
     print(data)
-    database.save_restaurant_food(data)
-    await message.answer("Блюдо добавлено!")
+    database.save_dishes(data)
+    await message.answer("Блюдо добавлено! Для просмотра добавленных блюд нажмите /dishes")
     await state.clear()
-
-
-
-
-
-

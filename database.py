@@ -18,7 +18,7 @@ class Database:
                 )
             """)
             conn.execute("""
-                CREATE TABLE IF NOT EXISTS restaurant_new_food (
+                CREATE TABLE IF NOT EXISTS  dishes (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT  NUT NULL,
                     price FLOAT,
@@ -42,14 +42,20 @@ class Database:
             )
 
 
-    def save_restaurant_food(self, data: dict):
+    def save_dishes(self, data: dict):
         with sqlite3.connect(self.path) as conn:
             conn.execute(
                 """
-                    INSERT INTO restaurant_new_food (name, price, description, categories)
+                    INSERT INTO dishes (name, price, description, categories)
                     VALUES (?, ?, ?, ?)
                 """,
                 (data["name"], data["price"], data["description"], data["categories"] )
             )
 
+    def get_all_dishes(self):
+        with sqlite3.connect(self.path) as conn:
+            result = conn.execute("SELECT * from dishes")
+            result.row_factory = sqlite3.Row
+            data = result.fetchall()
+            return [dict(row) for row in data]
 

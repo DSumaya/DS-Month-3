@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DatabaseToolSources">
-    <data-source name="REVIEW" uuid="47436c04-4d66-49f7-b701-39650adec75b" type="SQLITE">
+    <data-source name="localhost" uuid="f47b0004-bc40-4fa3-95e8-5a45b3c7ee8f" type="SQLITE">
       <base-info connect-type="DB_DEFAULT" product="SQLite" version="3.45.1" major-version="3" minor-version="45" jdbc-name="SQLite JDBC" jdbc-version="3.45.1.0" jdbc-major-version="3" jdbc-minor-version="45" />
       <user-name />
       <schema-mapping>
@@ -21,7 +21,7 @@
       <use-database kind="schema">
         <name qname="main" operator="@" />
       </use-database>
-      <url>jdbc:sqlite:/Users/sumaa/PycharmProjects/MONTH 3 HW/reviews</url>
+      <url>jdbc:sqlite:/Users/sumaa/PycharmProjects/MONTH 3 HW/restaurant.db</url>
       <remarks />
       <vm-options />
       <driver-info id="sqlite.xerial" />
