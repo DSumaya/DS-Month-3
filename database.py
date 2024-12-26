@@ -22,6 +22,7 @@ class Database:
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT  NUT NULL,
                     price FLOAT,
+                    cover TEXT NUT NULL,
                     description TEXT  NUT NULL,
                     categories TEXT  NUT NULL
                 )
@@ -46,10 +47,10 @@ class Database:
         with sqlite3.connect(self.path) as conn:
             conn.execute(
                 """
-                    INSERT INTO dishes (name, price, description, categories)
-                    VALUES (?, ?, ?, ?)
+                    INSERT INTO dishes (name, price, cover, description, categories)
+                    VALUES (?, ?, ?, ?, ?)
                 """,
-                (data["name"], data["price"], data["description"], data["categories"] )
+                (data["name"], data["price"], data ["cover"], data["description"], data["categories"] )
             )
 
     def get_all_dishes(self):

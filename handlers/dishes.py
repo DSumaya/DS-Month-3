@@ -13,5 +13,10 @@ async def show_all_dishes(message: types.Message):
     food_list = database.get_all_dishes()
     pprint(food_list)
     for food in food_list:
+        cover = food['cover']
+        print("Food cover", cover)
         txt = f"Название: {food['name']}\nЦена: {food['price']}\nОписание: {food['description']}\nКатегория:{food['categories']}"
-        await message.answer(txt)
+        await message.answer_photo(
+            photo=cover,
+            caption=txt
+        )

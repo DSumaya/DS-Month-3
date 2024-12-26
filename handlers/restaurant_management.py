@@ -1,9 +1,10 @@
-from aiogram import Router,F, types
+from aiogram import Router, F, types
 from aiogram.filters import Command
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
 
 from bot_config import database
+from pprint import pprint
 
 
 restaurant_management_router = Router()
@@ -13,6 +14,7 @@ restaurant_management_router = Router()
 class Restaurant(StatesGroup):
     name = State()
     price = State()
+    cover = State()
     description = State()
     categories = State()
 
@@ -31,8 +33,19 @@ async def add_name (message: types.Message, state:FSMContext):
 
 
 @restaurant_management_router.message(Restaurant.price)
-async def add_price (message: types.Message, state:FSMContext):
+async def process_price(message: types.Message, state: FSMContext):
     await state.update_data(price=message.text)
+    await message.answer("Загрузите фото:")
+    await state.set_state(Restaurant.cover)
+
+
+@restaurant_management_router.message(Restaurant.cover, F.photo)
+async def add_price (message: types.Message, state:FSMContext):
+    cover_list = message.photo
+    pprint(cover_list)
+    biggest_image = cover_list[-1]
+    biggest_image_id = biggest_image.file_id
+    await state.update_data(cover=biggest_image_id)
     await message.answer('Напишите описание:')
     await state.set_state(Restaurant.description)
 
